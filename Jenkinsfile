@@ -1,24 +1,24 @@
 pipeline {
     agent {
-        docker {
-            image 'node:18' // Замініть на ваш Docker-образ
-            args '-p 8000:8000' // Параметри запуску контейнера
+        dockerfile {
+            filename 'dockerfile'  // Ensure 'dockerfile' is at the project root or specify the correct path
+            additionalBuildArgs '--no-cache'  // Optional: Add build arguments (if needed)
         }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'npm install' // Встановлення залежностей
+                sh 'npm install' // Install dependencies
             }
         }
         stage('Test') {
             steps {
-                sh 'npx jest' // Запуск тестів
+                sh 'npm test' // Run tests using the default script in package.json (adjust if necessary)
             }
         }
         stage('Deploy') {
             steps {
-                // Наприклад, команда для запуску сервера
+                // Deploy the application, example running the server
                 sh 'node server.js'
             }
         }
