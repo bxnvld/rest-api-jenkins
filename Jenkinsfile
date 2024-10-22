@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:18' // Specify the Docker image to use
-            args '-p 8000:8000' // Parameters for running the container
+            args '-p 8001:8000' // Parameters for running the container
         }
     }
     stages {
