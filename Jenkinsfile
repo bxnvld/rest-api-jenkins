@@ -1,8 +1,8 @@
 pipeline {
     agent {
-        dockerfile {
-            filename 'dockerfile'  // Ensure 'dockerfile' is at the project root or specify the correct path
-            additionalBuildArgs '--no-cache'  // Optional: Add build arguments (if needed)
+        docker {
+            image 'node:18' // Specify the Docker image to use
+            args '-p 8000:8000' // Parameters for running the container
         }
     }
     stages {
