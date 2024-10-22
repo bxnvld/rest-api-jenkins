@@ -1,23 +1,31 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18' // Замініть на ваш Docker-образ
+            args '-p 8000:8000' // Параметри запуску контейнера
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
-                // Тут ви можете додати команди для збірки вашого проекту
+                sh 'npm install' // Встановлення залежностей
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
-                // Тут ви можете додати команди для тестування вашого проекту
+                sh 'npx jest' // Запуск тестів
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying...'
-                // Тут ви можете додати команди для розгортання вашого проекту
+                // Наприклад, команда для запуску сервера
+                sh 'node server.js'
             }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline completed'
         }
     }
 }
